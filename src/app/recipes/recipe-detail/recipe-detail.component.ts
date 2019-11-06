@@ -9,7 +9,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class RecipeDetailComponent implements OnInit {
   @Input() selectedRecipe: Recipe;
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit() {
   }
