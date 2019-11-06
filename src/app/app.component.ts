@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'max-angular';
+  selectedPage = 'recipe';
+
+  showPage(pageName: string) {
+    this.selectedPage = pageName;
+  }
 }
