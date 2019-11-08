@@ -4,14 +4,14 @@ export class ShoppingListService {
     ingredients: Ingredient[] = [
         new Ingredient('Apples', 5),
         new Ingredient('Bananas', 3)
-      ];
+    ];
 
     getIngredients() {
         return this.ingredients;
     }
-    
-    addIngredient(ingredient: Ingredient) {
-        this.ingredients.push(ingredient);
+
+    addNewIngredients(newIngredients: Ingredient[]) {
+        this.ingredients.push(...newIngredients);
         console.log(this.ingredients);
     }
 }
