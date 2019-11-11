@@ -1,7 +1,6 @@
-import { ShoppingListService } from './../../shopping-list/shopping-list.service';
-import { RecipeService } from './../recipe.service';
-import { Recipe } from './../recipe.model';
-import { Component, OnInit, Input } from '@angular/core';
+import {ShoppingListService} from '../../shopping-list/shopping-list.service';
+import {Recipe} from '../recipe.model';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-recipe-detail',
