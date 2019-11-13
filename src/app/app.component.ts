@@ -6,10 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'max-angular';
-  selectedPage = 'recipe';
-
-  showPage(pageName: string) {
-    this.selectedPage = pageName;
-  }
 }
