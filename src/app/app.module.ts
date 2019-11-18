@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HeaderComponent} from './header/header.component';
 import {RecipesComponent} from './recipes/recipes.component';
 import {RecipeListComponent} from './recipes/recipe-list/recipe-list.component';
@@ -41,12 +41,13 @@ const appRoutes: Routes = [
     ShoppingEditComponent,
     DropdownDirective,
     RecipeStartComponent,
-    RecipeEditComponent,
+    RecipeEditComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule
   ],
   providers: [
     ShoppingListService
