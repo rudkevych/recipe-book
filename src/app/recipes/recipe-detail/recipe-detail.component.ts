@@ -2,7 +2,7 @@ import {ShoppingListService} from '../../shopping-list/shopping-list.service';
 import {Recipe} from '../recipe.model';
 import {Component, Input, OnInit} from '@angular/core';
 import {RecipeService} from '../recipe.service';
-import {ActivatedRoute, Data, Params, Router} from '@angular/router';
+import {ActivatedRoute, Data, Params, Router, Route} from '@angular/router';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -35,6 +35,10 @@ export class RecipeDetailComponent implements OnInit {
 
   onEditRecipe() {
     this.router.navigate(['edit'], {relativeTo: this.route});
+  }
+
+  onDelete() {
+    this.recipeService.deleteRecipe(this.id);
   }
 
 }
