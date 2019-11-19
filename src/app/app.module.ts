@@ -15,6 +15,7 @@ import {DropdownDirective} from './shared/dropdown.directive';
 import {RouterModule, Routes} from '@angular/router';
 import {RecipeStartComponent} from './recipes/recipe-start/recipe-start.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { RecipeService } from './recipes/recipe.service';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/recipes', pathMatch: 'full'},
@@ -50,7 +51,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule
   ],
   providers: [
-    ShoppingListService
+    ShoppingListService,
+    RecipeService
   ],
   bootstrap: [AppComponent]
 })
