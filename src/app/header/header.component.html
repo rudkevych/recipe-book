@@ -20,12 +20,11 @@
         <li class="dropdown" appDropdown>
           <a class="dropdown-toggle">Manage <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li style="cursor: pointer"><a>Save data</a></li>
+            <li (click)="onSaveData()" style="cursor: pointer"><a>Save data</a></li>
             <li style="cursor: pointer"><a>Fetch data</a></li>
           </ul>
         </li>
       </ul>
-
     </div>
   </div>
 </nav>
