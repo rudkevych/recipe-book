@@ -9,25 +9,27 @@ export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
   selectedRecipeId: number;
 
-  private recipes: Recipe[] = [
-    new Recipe(
-      'Meat with potato',
-      'Test tefefetet',
-      'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/goulash.jpg',
-      [
-        new Ingredient('Meat', 1),
-        new Ingredient('Potato', 10)
-      ]),
-    new Recipe(
-      'Tost with tomato',
-      'Test desciption',
-      'https://restexpert.ru/uploads/recipe/861/644x483/1527518787048785500.jpg',
-      [
-        new Ingredient('Tomato', 4),
-        new Ingredient('Eggs', 2),
-        new Ingredient('bread', 1)
-      ])
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'Meat with potato',
+  //     'Test tefefetet',
+  //     'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/goulash.jpg',
+  //     [
+  //       new Ingredient('Meat', 1),
+  //       new Ingredient('Potato', 10)
+  //     ]),
+  //   new Recipe(
+  //     'Tost with tomato',
+  //     'Test desciption',
+  //     'https://restexpert.ru/uploads/recipe/861/644x483/1527518787048785500.jpg',
+  //     [
+  //       new Ingredient('Tomato', 4),
+  //       new Ingredient('Eggs', 2),
+  //       new Ingredient('bread', 1)
+  //     ])
+  // ];
+
+  private recipes: Recipe[] = [];
 
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
