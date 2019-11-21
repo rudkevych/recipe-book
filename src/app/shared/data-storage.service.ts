@@ -10,8 +10,8 @@ import { map, tap, take, exhaustMap } from 'rxjs/operators';
 })
 export class DataStorageService {
   constructor(private http: HttpClient,
-              private recipeService: RecipeService,
-              private authService: AuthService) { }
+    private recipeService: RecipeService,
+    private authService: AuthService) { }
 
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
@@ -23,23 +23,19 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    return this.authService.user.pipe(take(1), exhaustMap(user => {
-      return this.http.get<Recipe[]>(
-        'https://recipe-book-ccd5e.firebaseio.com/recipes.json',
-         {
-           params: new HttpParams().set('auth', user.token)
-         })
-    }), map(recipes => {
-      return recipes.map(recipe => {
-        return {
-          ...recipe,
-          ingredients: recipe.ingredients ? recipe.ingredients : []
-        };
-      });
-    }),
-    tap(recipes => {
-      this.recipeService.setRecipes(recipes);
-    }));
 
+    return this.http.get<Recipe[]>(
+      'https://recipe-book-ccd5e.firebaseio.com/recipes.json')
+      .pipe(map(recipes => {
+        return recipes.map(recipe => {
+          return {
+            ...recipe,
+            ingredients: recipe.ingredients ? recipe.ingredients : []
+          };
+        });
+      }),
+        tap(recipes => {
+          this.recipeService.setRecipes(recipes);
+        }));
   }
 }

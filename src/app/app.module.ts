@@ -1,8 +1,9 @@
+import { AuthInterceptorService } from './auth/auth/auth-interceptor.service';
 import { DataStorageService } from './shared/data-storage.service';
 import {ShoppingListService} from './shopping-list/shopping-list.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import {AppComponent} from './app.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -61,7 +62,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     ShoppingListService,
-    RecipeService
+    RecipeService,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })
