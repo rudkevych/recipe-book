@@ -10,6 +10,7 @@ import { error } from 'util';
 })
 export class AuthComponent implements OnInit {
   isLoginMode = true;
+  isLoading = false;
   loginForm: FormGroup;
 
   constructor(private authService: AuthService) { }
@@ -34,16 +35,18 @@ export class AuthComponent implements OnInit {
       return;
     }
     const credentials = this.loginForm.value;
+    this.isLoading = true;
     if (this.isLoginMode) {
 
     } else {
       this.authService.signUp(credentials.email, credentials.password).subscribe(
         responseData => {
           console.log(responseData);
+          this.isLoading = false;
         },
         error => {
           console.log(error);
-
+          this.isLoading = false;
         });
     }
     this.onResetForm();
