@@ -23,10 +23,14 @@ export class AuthComponent implements OnInit {
     this.isLoginMode = !this.isLoginMode;
   }
 
+  onResetForm() {
+    this.loginForm.reset();
+  }
+
   onSubmit() {
     const value = this.loginForm.value;
     console.log(value);
-    this.loginForm.reset();
+    this.onResetForm();
   }
 
 }
