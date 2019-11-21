@@ -11,6 +11,7 @@ import { error } from 'util';
 export class AuthComponent implements OnInit {
   isLoginMode = true;
   isLoading = false;
+  error: string = null;
   loginForm: FormGroup;
 
   constructor(private authService: AuthService) { }
@@ -46,6 +47,7 @@ export class AuthComponent implements OnInit {
         },
         error => {
           console.log(error);
+          this.error = 'An error occurred!';
           this.isLoading = false;
         });
     }
