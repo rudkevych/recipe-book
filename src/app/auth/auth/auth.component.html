@@ -1,12 +1,16 @@
 <div class="row">
   <div class="col-xs-12 col-md-6 col-md-offset-3">
-    <form>
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onSubmit()"
+    >
       <div class="form-group">
         <label for="email">Email</label>
         <input
           type="email"
           id="email"
           class="form-control"
+          formControlName="email"
         >
       </div>
       <div class="form-group">
@@ -15,10 +19,14 @@
           type="password"
           id="password"
           class="form-control"
+          formControlName="password"
         >
       </div>
       <div>
-        <button class="btn btn-success">{{isLoginMode ? 'Login' : 'Sign up'}}</button> |
+        <button
+          class="btn btn-success"
+          [disabled]="!loginForm.valid"
+        >{{isLoginMode ? 'Login' : 'Sign up'}}</button> |
         <button
           class="btn btn-primary"
           (click)="onSwitchMode()"
