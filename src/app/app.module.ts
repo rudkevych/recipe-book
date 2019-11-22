@@ -1,3 +1,4 @@
+import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
 import { AuthInterceptorService } from './auth/auth/auth-interceptor.service';
 import { DataStorageService } from './shared/data-storage.service';
 import {ShoppingListService} from './shopping-list/shopping-list.service';
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     RecipeEditComponent,
     AuthComponent,
     LoadingSpinnerComponent,
-    AlertComponent
+    AlertComponent,
+    PlaceholderDirective
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,10 @@ const appRoutes: Routes = [
     AuthGuard,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AlertComponent
+  ]
 })
 export class AppModule {
 }
