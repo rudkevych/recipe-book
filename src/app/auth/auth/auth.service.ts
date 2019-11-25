@@ -1,9 +1,10 @@
+import { environment } from './../../../environments/environment';
 import { Router } from '@angular/router';
 import { User } from './user.model';
 import { error } from 'util';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError, Subject, BehaviorSubject } from 'rxjs'
+import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 export interface AuthResponseData {
@@ -27,7 +28,7 @@ export class AuthService {
 
   signUp(email: string, password: string) {
     return this.http.post<AuthResponseData>
-      ('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDfIiXzxI72D5lNlbGGpZszVu_ak0ZhKNk',
+      (`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPIKey}`,
         {
           email,
           password,
@@ -40,7 +41,7 @@ export class AuthService {
 
   logIn(email: string, password: string) {
     return this.http.post<AuthResponseData>
-      ('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyDfIiXzxI72D5lNlbGGpZszVu_ak0ZhKNk',
+      (`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseAPIKey}`,
         {
           email,
           password,
@@ -68,7 +69,7 @@ export class AuthService {
       new Date(userData._tokenExpirationDate)
     );
 
-    if(loadedUser.token) {
+    if (loadedUser.token) {
       const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogOut(expirationDuration);
       this.user.next(loadedUser);
@@ -86,7 +87,7 @@ export class AuthService {
     this.user.next(null);
     localStorage.removeItem('userData');
     this.router.navigate(['/auth']);
-    if(this.tokenExpirationTimer) {
+    if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
     this.tokenExpirationTimer = null;
