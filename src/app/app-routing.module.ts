@@ -3,8 +3,7 @@ import { AuthComponent } from './auth/auth/auth.component';
 import { Routes, RouterModule } from '@angular/router';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/recipes', pathMatch: 'full' },
-  { path: 'auth', component: AuthComponent }
+  { path: '', redirectTo: '/recipes', pathMatch: 'full' }
 ];
 
 @NgModule({
