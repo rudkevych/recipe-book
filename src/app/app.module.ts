@@ -1,3 +1,4 @@
+import { CoreModule } from './core.module';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -29,13 +30,8 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     RecipesModule,
     AppRoutingModule,
     ShoppingListModule,
-    SharedModule
-  ],
-  providers: [
-    ShoppingListService,
-    RecipeService,
-    AuthGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+    SharedModule,
+    CoreModule
   ],
   bootstrap: [AppComponent]
 })
