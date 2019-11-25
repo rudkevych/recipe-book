@@ -10,8 +10,8 @@ import { map, tap, take, exhaustMap } from 'rxjs/operators';
 })
 export class DataStorageService {
   constructor(private http: HttpClient,
-    private recipeService: RecipeService,
-    private authService: AuthService) { }
+              private recipeService: RecipeService,
+              private authService: AuthService) { }
 
   storeRecipes() {
     const recipes = this.recipeService.getRecipes();
@@ -23,7 +23,6 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-
     return this.http.get<Recipe[]>(
       'https://recipe-book-ccd5e.firebaseio.com/recipes.json')
       .pipe(map(recipes => {
