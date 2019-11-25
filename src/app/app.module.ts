@@ -1,11 +1,9 @@
-import { ShoppingListModule } from './shopping-list/shopping-list.module';
-import { ShoppingListRoutingModule } from './shopping-list/shopping-list-routing.module';
-import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthInterceptorService } from './auth/auth/auth-interceptor.service';
 import { AuthComponent } from './auth/auth/auth.component';
@@ -13,30 +11,15 @@ import { AuthGuard } from './auth/auth/auth.guard';
 import { HeaderComponent } from './header/header.component';
 import { RecipeService } from './recipes/recipe.service';
 import { RecipesModule } from './recipes/recipes.module';
-import { AlertComponent } from './shared/alert/alert/alert.component';
-import { DropdownDirective } from './shared/dropdown.directive';
-import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
-
-
-// const appRoutes: Routes = [
-//   { path: '', redirectTo: '/recipes', pathMatch: 'full' },
-//   { path: 'shopping-list', component: ShoppingListComponent },
-//   { path: 'auth', component: AuthComponent }
-// ];
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    DropdownDirective,
     AuthComponent,
-    LoadingSpinnerComponent,
-    AlertComponent,
-    PlaceholderDirective
   ],
   imports: [
     BrowserModule,
@@ -45,7 +28,8 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     HttpClientModule,
     RecipesModule,
     AppRoutingModule,
-    ShoppingListModule
+    ShoppingListModule,
+    SharedModule
   ],
   providers: [
     ShoppingListService,
@@ -53,10 +37,7 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
   ],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    AlertComponent
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
