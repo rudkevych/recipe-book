@@ -5,10 +5,6 @@ import { AuthComponent } from './auth.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
-const routes: Routes = [
-  { path: 'auth', component: AuthComponent }
-];
-
 @NgModule({
   declarations: [
     AuthComponent
@@ -16,7 +12,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild([
-      { path: 'auth', component: AuthComponent },
+      { path: '', component: AuthComponent },
     ]),
     SharedModule,
     ReactiveFormsModule
