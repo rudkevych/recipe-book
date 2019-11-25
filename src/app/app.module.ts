@@ -1,3 +1,5 @@
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import { ShoppingListRoutingModule } from './shopping-list/shopping-list-routing.module';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -30,8 +32,6 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
   declarations: [
     AppComponent,
     HeaderComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
     DropdownDirective,
     AuthComponent,
     LoadingSpinnerComponent,
@@ -44,7 +44,8 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     ReactiveFormsModule,
     HttpClientModule,
     RecipesModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ShoppingListModule
   ],
   providers: [
     ShoppingListService,
