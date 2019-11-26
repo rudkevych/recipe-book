@@ -1,8 +1,8 @@
-import { DataStorageService } from './../shared/data-storage.service';
-import { EventEmitter, Injectable } from '@angular/core';
-import { Recipe } from './recipe.model';
-import { Ingredient } from '../shared/ingredient.model';
+import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { Recipe } from './recipe.model';
+import * as fromShoppingList from '../shopping-list/store/shopping-list.reducer'
+import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +33,8 @@ export class RecipeService {
   // ];
 
   private recipes: Recipe[] = [];
+
+  constructor(private store: Store<fromShoppingList.AppState>) {}
 
   setRecipes(recipes: Recipe[]) {
     this.recipes = recipes;
