@@ -1,6 +1,5 @@
 import { AddIngredients } from './../../shopping-list/store/shopping-list.actions';
 import { Ingredient } from './../../shared/ingredient.model';
-import {ShoppingListService} from '../../shopping-list/shopping-list.service';
 import {Recipe} from '../recipe.model';
 import {Component, Input, OnInit} from '@angular/core';
 import {RecipeService} from '../recipe.service';
@@ -17,8 +16,7 @@ export class RecipeDetailComponent implements OnInit {
   recipe: Recipe;
   id: number;
 
-  constructor(private shoppingListService: ShoppingListService,
-              private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
               private recipeService: RecipeService,
               private router: Router,
               private store: Store<{ingredients: {ingredients: Ingredient[]}}>) {
