@@ -1,4 +1,4 @@
-import { environment } from './../../../environments/environment';
+import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { User } from './user.model';
 import { error } from 'util';

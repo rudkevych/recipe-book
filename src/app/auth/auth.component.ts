@@ -1,5 +1,5 @@
-import { PlaceholderDirective } from './../../shared/placeholder/placeholder.directive';
-import { AlertComponent } from './../../shared/alert/alert/alert.component';
+import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
+import { AlertComponent } from '../shared/alert/alert/alert.component';
 import { Router } from '@angular/router';
 import { AuthService, AuthResponseData } from './auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
