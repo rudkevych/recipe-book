@@ -1,3 +1,4 @@
+import * as AuthActions from './store/auth.actions';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { User } from './user.model';
@@ -6,6 +7,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducer'l
 
 export interface AuthResponseData {
   idToken: string;
@@ -24,7 +27,8 @@ export class AuthService {
   tokenExpirationTimer: any;
 
   constructor(private http: HttpClient,
-              private router: Router) { }
+    private router: Router,
+    private store: Store<fromApp.AppState>) { }
 
   signUp(email: string, password: string) {
     return this.http.post<AuthResponseData>
@@ -72,7 +76,14 @@ export class AuthService {
     if (loadedUser.token) {
       const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
       this.autoLogOut(expirationDuration);
-      this.user.next(loadedUser);
+      // this.user.next(loadedUser);
+      this.store.dispatch(
+        new AuthActions.Login({
+          email: userData.email,
+          userId: userData.id,
+          token: userData._token,
+          expirationDate: new Date(userData._tokenExpirationDate)
+        }));
     }
 
   }
