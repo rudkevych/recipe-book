@@ -36,6 +36,8 @@ export class RecipeDetailComponent implements OnInit {
 
   onToListAdded() {
     // this.shoppingListService.addNewIngredients(this.recipe.ingredients);
+    console.log(this.recipe.ingredients);
+
     this.store.dispatch(new ShoppingListActions.AddIngredients(this.recipe.ingredients));
   }
 
