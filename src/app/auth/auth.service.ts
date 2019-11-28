@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import * as fromApp from '../store/app.reducer'l
+import * as fromApp from '../store/app.reducer'
 
 export interface AuthResponseData {
   idToken: string;
@@ -95,7 +95,8 @@ export class AuthService {
   }
 
   logOut() {
-    this.user.next(null);
+    // this.user.next(null);
+    this.store.dispatch(new AuthActions.Logout());
     localStorage.removeItem('userData');
     this.router.navigate(['/auth']);
     if (this.tokenExpirationTimer) {
@@ -116,7 +117,8 @@ export class AuthService {
       token,
       expirationDate
     );
-    this.user.next(user);
+    // this.user.next(user);
+    this.store.dispatch(new AuthActions.Login({email, userId, token, expirationDate}));
     this.autoLogOut(expiresIn * 1000);
     localStorage.setItem('userData', JSON.stringify(user));
   }
