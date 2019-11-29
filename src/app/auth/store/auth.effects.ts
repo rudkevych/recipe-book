@@ -1,4 +1,3 @@
-import { error } from 'util';
 import { AuthService } from './../auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -18,6 +17,40 @@ export interface AuthResponseData {
   registered?: boolean;
 }
 
+const handleAuthentication = (expiresIn: number, email: string, userId: string, token: string) => {
+  const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+  return new AuthActions.AuthenticateSuccess({
+    email,
+    userId,
+    token,
+    expirationDate
+  });
+};
+
+const handleError = (errorRes) => {
+  let errorMessage = 'An unknown error occurred';
+  if (!errorRes.error || !errorRes.error.error) {
+    return of(new AuthActions.AuthenticateFail(errorMessage));
+  }
+  switch (errorRes.error.error.message) {
+    case 'EMAIL_EXISTS':
+      errorMessage = 'This email is already used!';
+      break;
+    case 'EMAIL_NOT_FOUND':
+      errorMessage = 'Cant`t find such email. Try to register!';
+      break;
+    case 'INVALID_PASSWORD':
+      errorMessage = 'Password is not correct. Please, try again';
+      break;
+    case 'USER_DISABLED':
+      errorMessage = 'User is disabled. write us admin@gmail.com';
+      break;
+  }
+  return of(new AuthActions.AuthenticateFail(errorMessage));
+};
+
+
+
 @Injectable()
 export class AuthEffects {
 
@@ -29,9 +62,24 @@ export class AuthEffects {
 
   @Effect()
   authSignUp = this.actions$.pipe(
-    ofType(AuthActions.SIGNUP_START)
-
-  )
+    ofType(AuthActions.SIGNUP_START),
+    switchMap((signUpData: AuthActions.SignUpStart) => {
+      return this.http.post<AuthResponseData>
+        (`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPIKey}`,
+          {
+            email: signUpData.payload.email,
+            password: signUpData.payload.password,
+            returnSecureToken: true
+          }
+        ).pipe(map(resData => {
+          return handleAuthentication(+resData.expiresIn, resData.email, resData.localId, resData.idToken);
+        }),
+          catchError(errorRes => {
+            return handleError(errorRes);
+          })
+        );
+    })
+  );
 
 
 
@@ -49,36 +97,16 @@ export class AuthEffects {
           returnSecureToken: true
         }
       ).pipe(map(resData => {
-        const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-        return new AuthActions.AuthenticateSuccess({email: resData.email, userId: resData.localId, token: resData.idToken, expirationDate});
+        return handleAuthentication(+resData.expiresIn, resData.email, resData.localId, resData.idToken);
       }),
         catchError(errorRes => {
-          let errorMessage = 'An unknown error occurred';
-          if (!errorRes.error || !errorRes.error.error) {
-            return of(new AuthActions.AuthenticateFail(errorMessage));
-          }
-          switch (errorRes.error.error.message) {
-            case 'EMAIL_EXISTS':
-              errorMessage = 'This email is already used!';
-              break;
-            case 'EMAIL_NOT_FOUND':
-              errorMessage = 'Cant`t find such email. Try to register!';
-              break;
-            case 'INVALID_PASSWORD':
-              errorMessage = 'Password is not correct. Please, try again';
-              break;
-            case 'USER_DISABLED':
-              errorMessage = 'User is disabled. write us admin@gmail.com';
-              break;
-          }
-
-          return of(new AuthActions.AuthenticateFail(errorMessage));
+          return handleError(errorRes);
         })
-        );
+      );
     })
   );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   authSuccess = this.actions$.pipe(
     ofType(AuthActions.AUTHENTICATE_SUCCESS),
     tap(() => {
