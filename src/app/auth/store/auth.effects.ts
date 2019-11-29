@@ -1,3 +1,4 @@
+import { error } from 'util';
 import { AuthService } from './../auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -43,10 +44,27 @@ export class AuthEffects {
         const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
         return new AuthActions.Login({email: resData.email, userId: resData.localId, token: resData.idToken, expirationDate});
       }),
-        catchError(error => {
-          // ..
-          console.log('HEEELLLO ERROR');
-          return of();
+        catchError(errorRes => {
+          let errorMessage = 'An unknown error occurred';
+          if (!errorRes.error || !errorRes.error.error) {
+            return of(new AuthActions.LoginFail(errorMessage));
+          }
+          switch (errorRes.error.error.message) {
+            case 'EMAIL_EXISTS':
+              errorMessage = 'This email is already used!';
+              break;
+            case 'EMAIL_NOT_FOUND':
+              errorMessage = 'Cant`t find such email. Try to register!';
+              break;
+            case 'INVALID_PASSWORD':
+              errorMessage = 'Password is not correct. Please, try again';
+              break;
+            case 'USER_DISABLED':
+              errorMessage = 'User is disabled. write us admin@gmail.com';
+              break;
+          }
+
+          return of(new AuthActions.LoginFail(errorMessage));
         })
         );
     })
