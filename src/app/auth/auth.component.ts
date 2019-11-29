@@ -22,9 +22,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   @ViewChild(PlaceholderDirective, { static: false }) alertHost: PlaceholderDirective;
   closeSub: Subscription;
 
-  constructor(private authService: AuthService,
-              private componentFactoryResolver: ComponentFactoryResolver,
-              private router: Router,
+  constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
@@ -56,30 +54,12 @@ export class AuthComponent implements OnInit, OnDestroy {
     }
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-    let authObservable: Observable<AuthResponseData>;
-    this.isLoading = true;
 
     if (this.isLoginMode) {
-      // authObservable = this.authService.logIn(email, password);
-      // console.log(email, password);
       this.store.dispatch(new AuthActions.LoginStart({ email, password }));
     } else {
-      authObservable = this.authService.signUp(email, password);
+      this.store.dispatch(new AuthActions.SignUpStart({email, password}));
     }
-
-    // authObservable.subscribe(
-    //   resData => {
-    //     console.log(resData);
-    //     this.isLoading = false;
-    //     this.router.navigate(['/recipes']);
-    //   },
-    //   errorMessage => {
-    //     console.log(errorMessage);
-    //     this.error = errorMessage;
-    //     this.showErrorAlert(errorMessage);
-    //     this.isLoading = false;
-    //   }
-    // );
 
     this.onResetForm();
   }
