@@ -1,4 +1,3 @@
-import { LoginStart } from './store/auth.actions';
 import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 import { AlertComponent } from '../shared/alert/alert/alert.component';
 import { Router } from '@angular/router';
@@ -8,7 +7,7 @@ import { Component, OnInit, ComponentFactoryResolver, ViewChild, OnDestroy } fro
 import { Observable, Subscription } from 'rxjs';
 import * as fromApp from '../store/app.reducer';
 import { Store } from '@ngrx/store';
-import * as AuthActions from './store/auth.actions'
+import * as AuthActions from './store/auth.actions';
 
 @Component({
   selector: 'app-auth',
@@ -59,6 +58,7 @@ export class AuthComponent implements OnInit, OnDestroy {
 
     if (this.isLoginMode) {
       // authObservable = this.authService.logIn(email, password);
+      // console.log(email, password);
       this.store.dispatch(new AuthActions.LoginStart({ email, password }));
     } else {
       authObservable = this.authService.signUp(email, password);

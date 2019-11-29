@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { throwError, Subject, BehaviorSubject } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import * as fromApp from '../store/app.reducer'
+import * as fromApp from '../store/app.reducer';
 
 export interface AuthResponseData {
   idToken: string;
@@ -27,8 +27,8 @@ export class AuthService {
   tokenExpirationTimer: any;
 
   constructor(private http: HttpClient,
-    private router: Router,
-    private store: Store<fromApp.AppState>) { }
+              private router: Router,
+              private store: Store<fromApp.AppState>) { }
 
   signUp(email: string, password: string) {
     return this.http.post<AuthResponseData>
