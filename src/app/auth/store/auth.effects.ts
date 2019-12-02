@@ -57,7 +57,6 @@ const handleError = (errorRes) => {
 };
 
 
-
 @Injectable()
 export class AuthEffects {
 
@@ -78,7 +77,11 @@ export class AuthEffects {
             password: signUpData.payload.password,
             returnSecureToken: true
           }
-        ).pipe(map(resData => {
+        ).pipe(
+          tap((resData) => {
+            this.authService.setLogoutTimer(+resData.expiresIn * 1000);
+          }),
+          map(resData => {
           return handleAuthentication(+resData.expiresIn, resData.email, resData.localId, resData.idToken);
         }),
           catchError(errorRes => {
@@ -103,7 +106,11 @@ export class AuthEffects {
           password: authData.payload.password,
           returnSecureToken: true
         }
-      ).pipe(map(resData => {
+      ).pipe(
+        tap((resData) => {
+          this.authService.setLogoutTimer(+resData.expiresIn * 1000);
+        }),
+        map(resData => {
         return handleAuthentication(+resData.expiresIn, resData.email, resData.localId, resData.idToken);
       }),
         catchError(errorRes => {
@@ -144,8 +151,9 @@ export class AuthEffects {
       );
 
       if (loadedUser.token) {
-        // const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
-        // this.autoLogOut(expirationDuration);
+        const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
+        this.authService.setLogoutTimer(expirationDuration);
+
         return new AuthActions.AuthenticateSuccess({
           email: userData.email,
           userId: userData.id,
@@ -172,6 +180,7 @@ export class AuthEffects {
     tap(() => {
       localStorage.removeItem('userData');
       this.router.navigate(['/auth']);
+      this.authService.clearLogoutTimer();
     })
   );
 
