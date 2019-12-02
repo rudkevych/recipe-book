@@ -1,12 +1,10 @@
-import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
-import { AlertComponent } from '../shared/alert/alert/alert.component';
-import { Router } from '@angular/router';
-import { AuthService, AuthResponseData } from './auth.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit, ComponentFactoryResolver, ViewChild, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import * as fromApp from '../store/app.reducer';
+import { Component, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { AlertComponent } from '../shared/alert/alert/alert.component';
+import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
+import * as fromApp from '../store/app.reducer';
 import * as AuthActions from './store/auth.actions';
 
 @Component({

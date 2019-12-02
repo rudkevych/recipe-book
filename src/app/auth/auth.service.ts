@@ -1,23 +1,9 @@
-import * as AuthActions from './store/auth.actions';
-import { environment } from '../../environments/environment';
-import { Router } from '@angular/router';
-import { User } from './user.model';
-import { error } from 'util';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError, Subject, BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
+import * as AuthActions from './store/auth.actions';
 
-export interface AuthResponseData {
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-  registered?: boolean;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -25,8 +11,7 @@ export interface AuthResponseData {
 export class AuthService {
   tokenExpirationTimer: any;
 
-  constructor(private router: Router,
-              private store: Store<fromApp.AppState>) { }
+  constructor(private store: Store<fromApp.AppState>) { }
 
   setLogoutTimer(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
@@ -35,7 +20,7 @@ export class AuthService {
   }
 
   clearLogoutTimer() {
-    if(this.tokenExpirationTimer) {
+    if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
       this.tokenExpirationTimer = null;
     }
