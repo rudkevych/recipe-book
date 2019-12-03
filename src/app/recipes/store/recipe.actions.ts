@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 
 export const SET_RECIPES = '[Recipes] Set Recipes';
 export const GET_RECIPE = '[Recipes] Get Recipe';
-export const GET_RECIPES = '[Recipes] Get Recipes';
+export const FETCH_RECIPES = '[Recipes] Fetch Recipes';
 
 export class SetRecipes implements Action {
   readonly type = SET_RECIPES;
@@ -17,9 +17,9 @@ export class GetRecipe implements Action {
   constructor(public payload: number) {}
 }
 
-export class GetRecipes implements Action {
-  readonly type = GET_RECIPES;
+export class FetchRecipes implements Action {
+  readonly type = FETCH_RECIPES;
 }
 
-export type RecipesActions = SetRecipes | GetRecipe | GetRecipes;
+export type RecipesActions = SetRecipes | GetRecipe | FetchRecipes;
 
