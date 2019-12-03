@@ -17,9 +17,9 @@ export class RecipeDetailComponent implements OnInit {
   id: any;
 
   constructor(private route: ActivatedRoute,
-    private recipeService: RecipeService,
-    private router: Router,
-    private store: Store<fromApp.AppState>) {
+              private recipeService: RecipeService,
+              private router: Router,
+              private store: Store<fromApp.AppState>) {
   }
 
   ngOnInit() {
