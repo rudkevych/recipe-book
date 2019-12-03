@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core.module';
 import { HeaderComponent } from './header/header.component';
 import { SharedModule } from './shared/shared.module';
-import * as fromApp from './store/app.reducer'
+import * as fromApp from './store/app.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 

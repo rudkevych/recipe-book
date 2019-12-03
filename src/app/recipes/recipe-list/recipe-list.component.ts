@@ -3,7 +3,7 @@ import { RecipeService } from './../recipe.service';
 import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { Recipe } from '../recipe.model';
 import { ActivatedRoute, Route, Router } from '@angular/router';
-import * as fromApp from '../../store/app.reducer'
+import * as fromApp from '../../store/app.reducer';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 

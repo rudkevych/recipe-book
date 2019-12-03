@@ -5,7 +5,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as RecipesActions from './recipe.actions';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromApp from '../../store/app.reducer'
+import * as fromApp from '../../store/app.reducer';
 
 @Injectable()
 export class RecipeEffects {
@@ -37,8 +37,7 @@ export class RecipeEffects {
     switchMap(([actionData, recipesState]) => {
       return this.http.put('https://recipe-book-ccd5e.firebaseio.com/recipes.json', recipesState.recipes);
     })
-
-  )
+  );
 
   constructor(private actions$: Actions,
               private http: HttpClient,

@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
-      this.userSub = this.store.select('auth')
+    this.userSub = this.store.select('auth')
       .pipe(map(authState => {
         return authState.user;
       }))
@@ -29,12 +29,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSaveData() {
-    // this.dataStorageService.storeRecipes();
     this.store.dispatch(new RecipeActions.StoreRecipes());
   }
 
   onFetchData() {
-    // this.dataStorageService.fetchRecipes().subscribe();
     this.store.dispatch(new RecipeActions.FetchRecipes());
   }
 

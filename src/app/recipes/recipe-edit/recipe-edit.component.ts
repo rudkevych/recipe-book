@@ -1,14 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as fromApp from '../../store/app.reducer';
-import { DataStorageService } from './../../shared/data-storage.service';
-import { Recipe } from './../recipe.model';
-import { RecipeService } from './../recipe.service';
-import { map } from 'rxjs/operators';
-import * as RecipeActions from '../store/recipe.actions'
 import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import * as fromApp from '../../store/app.reducer';
+import * as RecipeActions from '../store/recipe.actions';
+import { Recipe } from './../recipe.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -23,17 +21,15 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   private storeSub: Subscription;
 
   constructor(private route: ActivatedRoute,
-    private recipeService: RecipeService,
-    private router: Router,
-    private dataStorageService: DataStorageService,
-    private store: Store<fromApp.AppState>) { }
+              private router: Router,
+              private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
     this.route.params.subscribe(
       (params: Params) => {
-        this.id = +params['id'];
+        this.id = +params[`id`];
         // params['id'] ? this.editMode = true : this.editMode = false;
-        this.editMode = params['id'] != null;
+        this.editMode = params[`id`] != null;
         this.initForm();
       }
     );
@@ -104,7 +100,7 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
           Validators.pattern(/^[1-9]+[0-9]*$/)
         ]),
       })
-    )
+    );
   }
 
   onCancel() {
@@ -114,7 +110,6 @@ export class RecipeEditComponent implements OnInit, OnDestroy {
   onDeleteIngredient(index: number) {
     (this.recipeForm.get('ingredients') as FormArray).removeAt(index);
   }
-
 
   ngOnDestroy() {
     if (this.storeSub) {

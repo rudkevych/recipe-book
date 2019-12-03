@@ -50,7 +50,7 @@ export function authReducer(state = initialState, action: AuthActions.AuthAction
       return {
         ...state,
         authError: null,
-      }
+      };
     default:
       return state;
   }
