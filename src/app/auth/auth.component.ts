@@ -22,7 +22,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   private storeSub: Subscription;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
-    private store: Store<fromApp.AppState>) { }
+              private store: Store<fromApp.AppState>) { }
 
   ngOnInit() {
     this.storeSub = this.store.select('auth').subscribe(authState => {
