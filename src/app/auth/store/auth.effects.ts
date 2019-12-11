@@ -92,8 +92,6 @@ export class AuthEffects {
     })
   );
 
-
-
   @Effect()
   authLogin = this.actions$.pipe(
     ofType(AuthActions.LOGIN_START),
